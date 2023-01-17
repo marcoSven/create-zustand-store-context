@@ -1,0 +1,36 @@
+{
+  "name": "create-zustand-store-context",
+  "version": "1.1.0",
+  "description": "Create React context with Zustand Store",
+  "author": "marcoSven",
+  "license": "MIT",
+  "repository": "marcoSven/create-zustand-store-context",
+  "type": "module",
+  "types": "dist/index.d.ts",
+  "typings": "dist/index.d.ts",
+  "source": "src/index.tsx",
+  "exports": {
+    "require": "./dist/index.cjs",
+    "default": "./dist/index.modern.js"
+  },
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.module.js",
+  "unpkg": "./dist/index.umd.js",
+  "scripts": {
+    "build": "microbundle",
+    "dev": "microbundle watch"
+  },
+  "peerDependencies": {
+    "react": "^16.9.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.0.26",
+    "gh-pages": "^2.0.1",
+    "microbundle": "^0.15.1",
+    "react": "^18.2.0",
+    "react-scripts": "^5.0.1"
+  },
+  "dependencies": {
+    "zustand": "^4.3.2"
+  }
+}
