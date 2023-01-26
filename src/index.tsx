@@ -6,7 +6,7 @@ import { shallow } from "zustand/shallow";
 
 const DEFAULT_ZUSTAND_STORE_Value = "DEFAULT_ZUSTAND_STORE_Value";
 
-export default function createZustandStoreContext<
+export function createZustandStoreContext<
   T extends Record<string, unknown>,
   O extends string = ""
 >({
@@ -27,15 +27,48 @@ export default function createZustandStoreContext<
   const createStore = !localStorage
     ? (state: T) => create<T>(() => state)
     : (state: T) => {
+        const { migrate, partialize, ...config } = localStorage;
+        const isObject = (obj: unknown): obj is Record<string, unknown> =>
+          typeof obj === "object" &&
+          obj !== null &&
+          !Array.isArray(obj) &&
+          Object.keys(obj).every((key) => typeof key === "string");
+
         const store = create<T>()(
           persist(() => state, {
-            ...localStorage,
-            partialize:
-              localStorage.partialize ||
-              ((state) => {
-                delete state["DEFAULT_ZUSTAND_STORE_Value"];
-                return state;
-              }),
+            ...config,
+            migrate: migrate
+              ? (persistedState: unknown, version: number): T =>
+                  isObject(persistedState)
+                    ? ((obj: Record<string, unknown>) =>
+                        ((obj): obj is T => {
+                          const set: Record<string, unknown> = {};
+
+                          for (const k of Object.keys(obj)) {
+                            set[k] = 1;
+                          }
+
+                          for (const k of Object.keys(
+                            (localStorage &&
+                              localStorage.partialize?.(state)) ||
+                              state
+                          )) {
+                            if (!set[k]) return false;
+
+                            set[k] = 2;
+                          }
+
+                          for (const k in set) {
+                            if (set[k] === 1) return false;
+                          }
+
+                          return true;
+                        })(obj)
+                          ? obj
+                          : state)(migrate(persistedState, version))
+                    : state
+              : undefined,
+            partialize: partialize || ((state) => state),
           })
         );
 

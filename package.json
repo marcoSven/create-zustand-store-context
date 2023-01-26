@@ -1,6 +1,6 @@
 {
   "name": "create-zustand-store-context",
-  "version": "1.1.0",
+  "version": "1.1.12",
   "description": "Create React context with Zustand Store",
   "author": "marcoSven",
   "license": "MIT",

@@ -1,6 +1,6 @@
 /// <reference types="react" />
 import { StoreApi } from "zustand";
-export default function createZustandStoreContext<T extends Record<string, unknown>, O extends string = "">({ defaultState, localStorage, name, }: {
+export declare function createZustandStoreContext<T extends Record<string, unknown>, O extends string = "">({ defaultState, localStorage, name, }: {
     defaultState: T;
     localStorage?: {
         force?: boolean;
