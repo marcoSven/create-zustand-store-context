@@ -1,6 +1,6 @@
 {
   "name": "create-zustand-store-context",
-  "version": "1.1.12",
+  "version": "1.1.18",
   "description": "Create React context with Zustand Store",
   "author": "marcoSven",
   "license": "MIT",
@@ -21,7 +21,7 @@
     "dev": "microbundle watch"
   },
   "peerDependencies": {
-    "react": "^16.9.0"
+    "react": "^18.2.0|| >=16.9.0"
   },
   "devDependencies": {
     "@types/react": "^18.0.26",
@@ -31,6 +31,6 @@
     "react-scripts": "^5.0.1"
   },
   "dependencies": {
-    "zustand": "^4.3.2"
+    "zustand": "4.3.7"
   }
 }
